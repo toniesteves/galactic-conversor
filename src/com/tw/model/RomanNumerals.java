@@ -2,6 +2,7 @@ package com.tw.model;
 
 import com.tw.service.ConversorService;
 import com.tw.util.Messages;
+import com.tw.util.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,7 +86,7 @@ public class RomanNumerals{
                     }
                     return finalNumber;
                 } else {
-                    conversorService.setMessage(Messages.ROMAN_SUBTRACTION_NOT_MET.getMessage());
+                    Util.setMessage(Messages.ROMAN_SUBTRACTION_NOT_MET.getMessage());
                 }
             }
 
@@ -103,7 +104,7 @@ public class RomanNumerals{
             if (result != -1) {
                 numbers.add(result);
             } else {
-                conversorService.setMessage(Messages.INCORRECT_ROMAN_NUMERAL.getMessage());
+                Util.setMessage(Messages.INCORRECT_ROMAN_NUMERAL.getMessage());
                 numbers = null;
                 break;
             }

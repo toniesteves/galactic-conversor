@@ -1,6 +1,7 @@
 package com.tw.view;
 
 import com.tw.dispatcher.Dispatcher;
+import com.tw.util.Util;
 
 
 /**
@@ -31,9 +32,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTextInputLine = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jTextArabic = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        labelErro = new javax.swing.JLabel();
+        labelInfo = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,20 +53,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextArabic.setFont(new java.awt.Font("Lucida Grande", 0, 30)); // NOI18N
-        jTextArabic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldArabico(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Galactic Unit Converter");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        labelErro.setFont(new java.awt.Font("Lucida Grande", 0, 30)); // NOI18N
+        labelInfo.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
 
         jButton5.setText("Clean");
         jButton5.setAlignmentY(4.0F);
@@ -83,12 +76,11 @@ public class MainFrame extends javax.swing.JFrame {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(17, 17, 17)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                    .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTextInputLine)
-                            .add(jTextArabic)
-                            .add(labelErro, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, labelInfo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jTextInputLine))
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jButton5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
@@ -107,10 +99,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTextArabic, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(labelErro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(labelInfo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -122,18 +112,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+        setLabelInfo("");
         dispatcher.processInput(jTextInputLine.getText());
-
+        setLabelInfo(Util.getMessage());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextFieldArabico(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldArabico
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldArabico
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        jTextArabic.setText(null);
-        jTextInputLine.setText(null);
-        getLabelErro().setText(null);
+        setLabelInfo(null);
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -174,22 +160,21 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextArabic;
     private javax.swing.JTextField jTextInputLine;
-    private javax.swing.JLabel labelErro;
+    private javax.swing.JLabel labelInfo;
     // End of variables declaration//GEN-END:variables
 
     /**
      * @return the labelErro
      */
-    public javax.swing.JLabel getLabelErro() {
-        return labelErro;
+    public String getLabelInfo() {
+        return this.labelInfo.getText();
     }
 
     /**
      * @param labelErro the labelErro to set
      */
-    public void setLabelErro(javax.swing.JLabel labelErro) {
-        this.labelErro = labelErro;
+    public void setLabelInfo(String text) {
+        this.labelInfo.setText(text);
     }
 }

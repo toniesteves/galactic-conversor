@@ -10,19 +10,20 @@ import java.util.Map;
  *
  * @author Toni
  */
-public class GalacticNumerals extends RomanNumerals{
+public class GalacticNumerals extends RomanNumerals {
 
     //private static GalacticNumerals alienNumeral;
     private ConversorService conversorService = ConversorService.getInstance();
-    private Map<String, String> galacticNumerals;
+    private Map<String, String> galacticNumeralsMap;
 
     public GalacticNumerals() {
-        galacticNumerals = new HashMap<String, String>();
+        galacticNumeralsMap = new HashMap<String, String>();
     }
 
-    public void addToMap(String galacticNumeral, String rNumeral) {
+    public void addToMap(String galacticNumeral, String romanNumeral) {
         if (conversorService.isWord(galacticNumeral) && !isPresent(galacticNumeral)) {
-            galacticNumerals.put(galacticNumeral, rNumeral);
+            galacticNumeralsMap.put(galacticNumeral, romanNumeral);
+            Util.setMessage(Messages.VALUE_ASSIGNED.getMessage());
         }
     }
 
@@ -30,30 +31,28 @@ public class GalacticNumerals extends RomanNumerals{
         StringBuilder romanNumeralBuilder = new StringBuilder(aNumeral.length);
 
         for (String current : aNumeral) {
-            romanNumeralBuilder.append(galacticNumerals.get(current));
+            romanNumeralBuilder.append(galacticNumeralsMap.get(current));
         }
 
         return romanNumeralBuilder.toString();
     }
 
     private boolean isPresent(String aNumeral) {
-        return galacticNumerals.containsKey(aNumeral);
+        return galacticNumeralsMap.containsKey(aNumeral);
     }
 
     public boolean arePresent(String[] numeral) {
         for (String s : numeral) {
             if (!isPresent(s)) {
-                Util.promptUser(s + Messages.NO_GALACT_NUMERAL.getMessage());
+                Util.setMessage(s + Messages.NO_GALACT_NUMERAL.getMessage());
                 return false;
             }
         }
         return true;
-    }    
+    }
 
     @Override
     public int toArabicNumber(String romanNumeral) {
-        return super.toArabicNumber(romanNumeral); 
+        return super.toArabicNumber(romanNumeral);
     }
-
-    
 }

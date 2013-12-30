@@ -1,7 +1,12 @@
 package com.tw.service;
 
-import com.tw.util.Numeral;
+import com.tw.util.InputType;
+import com.tw.util.Input;
+import com.tw.util.Messages;
+import com.tw.util.Roman;
+import com.tw.util.RegularExpression;
 import com.tw.util.Util;
+import com.tw.util.ViolatesMessages;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +36,9 @@ public class ConversorService {
     }
 
     public InputType getInputType(String input) {
+
         for (Input current : Input.values()) {
+
             pattern = getPattern(current.getRegex());
             matcher = getMatcher(pattern, input);
 
@@ -72,7 +79,7 @@ public class ConversorService {
             Matcher matcher = getMatcher(getPattern(regex), romanNumeral);
 
             if (matcher.matches()) {
-                Util.promptUser("The number entered violates Roman Number formation.");
+                Util.setMessage(Messages.ROMAN_NUMBER_FORMATION.getMessage());
                 return true;
             }
         }
@@ -80,26 +87,26 @@ public class ConversorService {
     }
 
     public boolean isWord(String numeral) {
-        String wordRegex = "^[a-z]+";
+        String wordRegex = RegularExpression.IS_WORD_REG_EXP.getRegularExpression();
         matcher = getMatcher(getPattern(wordRegex), (numeral.toLowerCase()));
         if (!matcher.matches()) {
-            Util.promptUser("Alien numeral must be a word.");
+            Util.setMessage(Messages.MUST_A_WORD.getMessage());
         }
         return (matcher.matches() ? true : false);
     }
 
     public Matcher getHowMuchMatcher(String line) {
-        String howMuchRegEx = "^how much is ((?:\\w+[^0-9] )+)\\?$";
+        String howMuchRegEx = RegularExpression.HOW_MUCH_REG_EXP.getRegularExpression();
         return getMatcher(getPattern(howMuchRegEx), line);
     }
 
     public Matcher getHowManyMatcher(String line) {
-        String howManyRegex = "^how many ([a-zA-Z]\\w+) is ((?:\\w+ )+)([A-Z]\\w+) \\?$";
+        String howManyRegex = RegularExpression.HOW_MANY_REG_EXP.getRegularExpression();
         return getMatcher(getPattern(howManyRegex), line);
     }
 
     public Matcher getCreditsMatcher(String line) {
-        String creditsInfoRegEx = "((?:[a-z]+ )+)([A-Z]\\w+) is (\\d+) ([A-Z]\\w+)$";
+        String creditsInfoRegEx = RegularExpression.CREDITS_INFO_REG_EXP.getRegularExpression();
         return getMatcher(getPattern(creditsInfoRegEx), line);
     }
 
@@ -109,31 +116,31 @@ public class ConversorService {
             number = numbers.get(i);
             nextNumber = Math.abs(numbers.get(i + 1));
 
-            if (number == -Numeral.V.getNumber() || number == -Numeral.L.getNumber()
-                    || number == -Numeral.D.getNumber()) {
-                setMessage("V, L, and D can never be subtracted.");
+            if (number == -Roman.V.getNumber() || number == -Roman.L.getNumber()
+                    || number == -Roman.D.getNumber()) {
+                Util.setMessage(ViolatesMessages.VLD_NEVER_SUBTRACTED.getMessage());
                 return true;
             }
 
             switch (Math.abs(number)) {
                 case 1:
 
-                    if (nextNumber > Numeral.I.getNumber() && nextNumber != Numeral.V.getNumber() && nextNumber != Numeral.X.getNumber() && nextNumber != number) {
-                        setMessage("I can be subtracted from V and X only.");
+                    if (nextNumber > Roman.I.getNumber() && nextNumber != Roman.V.getNumber() && nextNumber != Roman.X.getNumber() && nextNumber != number) {
+                        Util.setMessage(ViolatesMessages.SUBTRACTED_FROM_VX.getMessage());
                         return true;
                     }
                     break;
 
                 case 10:
-                    if (nextNumber > Numeral.X.getNumber() && nextNumber != Numeral.L.getNumber() && nextNumber != Numeral.C.getNumber() && nextNumber != number) {
-                        setMessage("X can be subtracted from L and C only.");
+                    if (nextNumber > Roman.X.getNumber() && nextNumber != Roman.L.getNumber() && nextNumber != Roman.C.getNumber() && nextNumber != number) {
+                        Util.setMessage(ViolatesMessages.X_FROM_LC.getMessage());
                         return true;
                     }
                     break;
 
                 case 100:
-                    if (nextNumber > Numeral.C.getNumber() && nextNumber != Numeral.D.getNumber() && nextNumber != Numeral.M.getNumber() && nextNumber != number) {
-                        setMessage("C can be subtracted from D and M only.");
+                    if (nextNumber > Roman.C.getNumber() && nextNumber != Roman.D.getNumber() && nextNumber != Roman.M.getNumber() && nextNumber != number) {
+                        Util.setMessage(ViolatesMessages.C_FROM_DM.getMessage());
                         return true;
                     }
                     break;
@@ -153,10 +160,5 @@ public class ConversorService {
             }
         }
         return numbers;
-    }
-
-    public void setMessage(String msg) {
-
-        this.util.setMessage(msg);
     }
 }

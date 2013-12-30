@@ -2,6 +2,7 @@ package com.tw.model;
 
 import com.tw.service.ConversorService;
 import com.tw.util.Messages;
+import com.tw.util.Util;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -11,7 +12,8 @@ import java.util.regex.Matcher;
  * @author Toni
  */
 public class Metals {
-
+    
+    private String SPACE = "\\s";
     private Map<String, Double> metals;
     private GalacticNumerals galacticNumerals;
     private ConversorService conversorService = ConversorService.getInstance();
@@ -25,12 +27,12 @@ public class Metals {
         Matcher matcher = conversorService.getCreditsMatcher(userInput);
 
         if (matcher.matches()) {
-            String[] galacticNumeralsToCheck = matcher.group(1).split("\\s");
+            String[] galacticNumeralsToCheck = matcher.group(1).split(SPACE);
             String name = matcher.group(2);
             int bulkValue = Integer.parseInt(matcher.group(3));
 
             if (!galacticNumerals.arePresent(galacticNumeralsToCheck)) {
-                conversorService.setMessage("Undeclared Galactic Numeral was used, input ignored.");
+                Util.setMessage(Messages.UNDECLARED_GALACTIC_NUMBER.getMessage());
                 return;
             }
 
@@ -55,7 +57,7 @@ public class Metals {
         boolean result = metals.containsKey(name);
 
         if (!result) {
-            conversorService.setMessage(name + Messages.METAL_NOT_PRESENT.getMessage());
+            Util.setMessage(name + Messages.METAL_NOT_PRESENT.getMessage());
         }
 
         return result;
