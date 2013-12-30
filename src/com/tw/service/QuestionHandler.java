@@ -42,8 +42,8 @@ public class QuestionHandler {
         if (matcher.matches()) {
             String inputNumerals = matcher.group(1);
             String[] galacticNumerals = matcher.group(1).split(" ");
-            if (galacticNumeral.arePresent(galacticNumerals)) {
-                int number = galacticNumeral.toArabicNumber(galacticNumeral.toRomanNumeral(galacticNumerals));
+            if (galacticNumeral.areGalacticalNumeralsPresent(galacticNumerals)) {
+                int number = galacticNumeral.getArabicNumeral(galacticNumeral.createRomanNumeral(galacticNumerals));
                 if (number != -1) {
                     answer = inputNumerals +IS+ number + ".";
                 }
@@ -60,15 +60,15 @@ public class QuestionHandler {
         if (matcher.matches()) {
             String creditName = matcher.group(1);
             String[] alienNumerals = matcher.group(2).split(SPACE);
-            String barName = matcher.group(3);
+            String metalName = matcher.group(3);
 
-            if (galacticNumeral.arePresent(alienNumerals) && metals.isPresent(barName)) {
-                int barQuantity = galacticNumeral.toArabicNumber(galacticNumeral.toRomanNumeral(alienNumerals));
+            if (galacticNumeral.areGalacticalNumeralsPresent(alienNumerals) && metals.isPresent(metalName)) {
+                int metalQuantity = galacticNumeral.getArabicNumeral(galacticNumeral.createRomanNumeral(alienNumerals));
 
-                if (barQuantity != -1) {
-                    double totalCredits = barQuantity * metals.getMetalsUnitValue(barName);
+                if (metalQuantity != -1) {
+                    double totalCredits = metalQuantity * metals.getMetalsUnitValue(metalName);
                     StringBuilder result = new StringBuilder();
-                    result.append(matcher.group(2)).append(barName).append(IS).append(totalCredits).append(" ").append(creditName);
+                    result.append(matcher.group(2)).append(metalName).append(IS).append(totalCredits).append(" ").append(creditName);
                     answer = result.toString();
                 }
             }

@@ -34,29 +34,6 @@ public class RomanNumerals{
         this.conversorService = ConversorService.getInstance();
     }
 
-    public int getRomanNumeral(String valueInRoman) {
-
-        int accumulator = 0;
-        int lastValueOnRight = 0;
-
-
-        for (int i = valueInRoman.length() - 1; i >= 0; i--) {
-
-            int current = table.get(valueInRoman.charAt(i));
-            int multiplier = 1;
-
-            if (current < lastValueOnRight) {
-                multiplier = -1;
-            }
-
-            accumulator += current * multiplier;
-
-            lastValueOnRight = current;
-        }
-
-        return accumulator;
-    }
-
     private int getNumeralFromChar(char numeral) {
         int number = -1;
 
@@ -71,7 +48,7 @@ public class RomanNumerals{
         return number;
     }
 
-    public int toArabicNumber(String romanNumeral) {
+    public int getArabicNumeral(String romanNumeral) {
         List<Integer> numbers = getNumerals(romanNumeral.toCharArray());
 
         if (numbers != null) {

@@ -7,14 +7,27 @@
 
 \f0\fs22 \cf0 #################################### Program Descriptor ##################################\
 \
+Unit Galactic Conversor\
 \
+Developed by: Toni Esteves\
+IDE usada: Netbeans 7.3.1\
+java version 1.6.0_65\
 \
 #################################### Program Design ##################################\
 \
 This file lists what class is for what purpose.\
 \
-NummeralMapper.java\
-It stores the mapping between \ul Vulcan\ulnone  numerals and Roman numerals.\
+GalacticNumerals.java\
+It stores the mapping between metals numerals and Roman numerals.\
+\
+Input/InputType.java\
+It map the type of input entered by users and send them to dispatcher;\
+\
+Messages.java\
+It handles messages of application.\
+\
+RegularExpression.java\
+it formats the entries for the User application\
 \
 Dispatcher.java\
 It handles the entire program by deciding which components should be\
@@ -26,14 +39,23 @@ It answer the questions.\
 RomanNumerals.java\
 It takes care of Roman Numeral related functionality.\
 \
-CurrencyHelper.java\
-Entry point of the program.\
+ConversorService.java\
+Contains all heavy logical applications and conversion/validation functions.\
 \
 Util.java\
 Handles print statements.\
 \
+RegularExpression.java\
+It has all regular expression strings.\
+\
+Roman.java\
+It map roman numbers to server violatesMessages.java\
+\
+ViolatesMessages.java\
+It has all violates message strings.\
+\
 Metals.java\
-It takes care of \ul Vulcan\ulnone  Numeral related functionality.\
+It takes care of metals Numeral related functionality.\
 \
 #################################### Program Input ##################################\
 \

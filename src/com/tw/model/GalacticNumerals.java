@@ -12,38 +12,38 @@ import java.util.Map;
  */
 public class GalacticNumerals extends RomanNumerals {
 
-    //private static GalacticNumerals alienNumeral;
-    private ConversorService conversorService = ConversorService.getInstance();
+    private ConversorService conversorService;
     private Map<String, String> galacticNumeralsMap;
 
     public GalacticNumerals() {
         galacticNumeralsMap = new HashMap<String, String>();
+        conversorService = ConversorService.getInstance();
     }
 
     public void addToMap(String galacticNumeral, String romanNumeral) {
-        if (conversorService.isWord(galacticNumeral) && !isPresent(galacticNumeral)) {
+        if (conversorService.isWord(galacticNumeral) && !isGalacticNumeralPresent(galacticNumeral)) {
             galacticNumeralsMap.put(galacticNumeral, romanNumeral);
             Util.setMessage(Messages.VALUE_ASSIGNED.getMessage());
         }
     }
 
-    public String toRomanNumeral(String[] aNumeral) {
-        StringBuilder romanNumeralBuilder = new StringBuilder(aNumeral.length);
+    public String createRomanNumeral(String[] galacticNumeral) {
+        StringBuilder romanNumeralBuilder = new StringBuilder(galacticNumeral.length);
 
-        for (String current : aNumeral) {
+        for (String current : galacticNumeral) {
             romanNumeralBuilder.append(galacticNumeralsMap.get(current));
         }
 
         return romanNumeralBuilder.toString();
     }
 
-    private boolean isPresent(String aNumeral) {
-        return galacticNumeralsMap.containsKey(aNumeral);
+    protected boolean isGalacticNumeralPresent(String galacticNumeral) {
+        return galacticNumeralsMap.containsKey(galacticNumeral);
     }
 
-    public boolean arePresent(String[] numeral) {
+    public boolean areGalacticalNumeralsPresent(String[] numeral) {
         for (String s : numeral) {
-            if (!isPresent(s)) {
+            if (!isGalacticNumeralPresent(s)) {
                 Util.setMessage(s + Messages.NO_GALACT_NUMERAL.getMessage());
                 return false;
             }
@@ -52,7 +52,7 @@ public class GalacticNumerals extends RomanNumerals {
     }
 
     @Override
-    public int toArabicNumber(String romanNumeral) {
-        return super.toArabicNumber(romanNumeral);
+    public int getArabicNumeral(String romanNumeral) {
+        return super.getArabicNumeral(romanNumeral);
     }
 }

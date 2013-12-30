@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
  * @author Toni
  */
 public class Metals {
-    
+
     private String SPACE = "\\s";
     private Map<String, Double> metals;
     private GalacticNumerals galacticNumerals;
@@ -23,6 +23,9 @@ public class Metals {
         metals = new HashMap<String, Double>();
     }
 
+    Metals() {
+    }
+
     public void saveInfo(String userInput) {
         Matcher matcher = conversorService.getCreditsMatcher(userInput);
 
@@ -31,13 +34,13 @@ public class Metals {
             String name = matcher.group(2);
             int bulkValue = Integer.parseInt(matcher.group(3));
 
-            if (!galacticNumerals.arePresent(galacticNumeralsToCheck)) {
+            if (!galacticNumerals.areGalacticalNumeralsPresent(galacticNumeralsToCheck)) {
                 Util.setMessage(Messages.UNDECLARED_GALACTIC_NUMBER.getMessage());
                 return;
             }
 
             //units is float to get metalUnitValue in double. 
-            float units = galacticNumerals.toArabicNumber(galacticNumerals.toRomanNumeral(galacticNumeralsToCheck));
+            float units = galacticNumerals.getArabicNumeral(galacticNumerals.createRomanNumeral(galacticNumeralsToCheck));
 
             float metalUnitValue = bulkValue / units;
             addMetal(name, metalUnitValue);
@@ -49,7 +52,7 @@ public class Metals {
         return metals.get(metalName);
     }
 
-    private void addMetal(String metalName, double metalUnitValue) {
+    protected void addMetal(String metalName, double metalUnitValue) {
         metals.put(metalName, metalUnitValue);
     }
 
