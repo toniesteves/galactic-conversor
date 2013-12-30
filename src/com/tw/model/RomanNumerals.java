@@ -1,0 +1,117 @@
+package com.tw.model;
+
+import com.tw.service.ConversorService;
+import com.tw.util.Messages;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+/**
+ *
+ * @author Toni
+ */
+public class RomanNumerals{
+
+    private ConversorService conversorService;
+    private static Map<Character, Integer> table = new HashMap<Character, Integer>() {
+        {
+
+            put('I', 1);
+            put('V', 5);
+            put('X', 10);
+            put('L', 50);
+            put('C', 100);
+            put('D', 500);
+            put('M', 1000);
+        }
+    };
+
+    public RomanNumerals() {
+
+        this.conversorService = ConversorService.getInstance();
+    }
+
+    public int getRomanNumeral(String valueInRoman) {
+
+        int accumulator = 0;
+        int lastValueOnRight = 0;
+
+
+        for (int i = valueInRoman.length() - 1; i >= 0; i--) {
+
+            int current = table.get(valueInRoman.charAt(i));
+            int multiplier = 1;
+
+            if (current < lastValueOnRight) {
+                multiplier = -1;
+            }
+
+            accumulator += current * multiplier;
+
+            lastValueOnRight = current;
+        }
+
+        return accumulator;
+    }
+
+    private int getNumeralFromChar(char numeral) {
+        int number = -1;
+
+        for (Entry current : table.entrySet()) {
+
+            if (current.getKey().equals(numeral)) {
+
+                number = Integer.parseInt(current.getValue().toString());
+            }
+        }
+
+        return number;
+    }
+
+    public int toArabicNumber(String romanNumeral) {
+        List<Integer> numbers = getNumerals(romanNumeral.toCharArray());
+
+        if (numbers != null) {
+            numbers = conversorService.setElementPositionsToSubstract(numbers);
+
+            int finalNumber = 0;
+
+            if (!conversorService.checkRomanFormat(romanNumeral)) {
+                if (!conversorService.violatesSubtraction(numbers)) {
+                    for (int i : numbers) {
+                        finalNumber += i;
+                    }
+                    return finalNumber;
+                } else {
+                    conversorService.setMessage(Messages.ROMAN_SUBTRACTION_NOT_MET.getMessage());
+                }
+            }
+
+        }
+        return -1;
+    }
+
+    private List<Integer> getNumerals(char[] parts) {
+
+        int result;
+        List<Integer> numbers = new ArrayList<Integer>();
+
+        for (char current : parts) {
+            result = getNumeralFromChar(current);
+            if (result != -1) {
+                numbers.add(result);
+            } else {
+                conversorService.setMessage(Messages.INCORRECT_ROMAN_NUMERAL.getMessage());
+                numbers = null;
+                break;
+            }
+        }
+        return numbers;
+    }
+
+    
+
+    
+}
