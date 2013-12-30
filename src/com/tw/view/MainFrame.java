@@ -1,5 +1,7 @@
 package com.tw.view;
 
+import com.tw.dispatcher.Dispatcher;
+
 
 /**
  *
@@ -7,11 +9,15 @@ package com.tw.view;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    
+    Dispatcher dispatcher;
+    
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        dispatcher = new Dispatcher();
     }
 
     /**
@@ -23,7 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextRoman = new javax.swing.JTextField();
+        jTextInputLine = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jTextArabic = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -33,10 +39,10 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Galactic Unit Converter");
 
-        jTextRoman.setFont(new java.awt.Font("Lucida Grande", 0, 30)); // NOI18N
-        jTextRoman.addActionListener(new java.awt.event.ActionListener() {
+        jTextInputLine.setFont(new java.awt.Font("Lucida Grande", 0, 30)); // NOI18N
+        jTextInputLine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextRomanActionPerformed(evt);
+                jTextInputLineActionPerformed(evt);
             }
         });
 
@@ -80,7 +86,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTextRoman)
+                            .add(jTextInputLine)
                             .add(jTextArabic)
                             .add(labelErro, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .add(18, 18, 18)
@@ -97,7 +103,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTextRoman, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextInputLine, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -110,12 +116,13 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextRomanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextRomanActionPerformed
+    private void jTextInputLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextInputLineActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextRomanActionPerformed
+    }//GEN-LAST:event_jTextInputLineActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
+        dispatcher.processInput(jTextInputLine.getText());
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -125,7 +132,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         jTextArabic.setText(null);
-        jTextRoman.setText(null);
+        jTextInputLine.setText(null);
         getLabelErro().setText(null);
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -168,7 +175,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextArabic;
-    private javax.swing.JTextField jTextRoman;
+    private javax.swing.JTextField jTextInputLine;
     private javax.swing.JLabel labelErro;
     // End of variables declaration//GEN-END:variables
 

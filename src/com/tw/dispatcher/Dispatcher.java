@@ -1,7 +1,10 @@
-package com.tw.service;
+package com.tw.dispatcher;
 
 import com.tw.model.GalacticNumerals;
 import com.tw.model.Metals;
+import com.tw.service.ConversorService;
+import com.tw.service.InputType;
+import com.tw.service.QuestionHandler;
 import com.tw.util.Util;
 import com.tw.util.Messages;
 import java.util.Scanner;
